@@ -1,4 +1,4 @@
-import { tLoginFormSchema } from '@/schemas'
+import { tLoginFormSchema, tRegisterFormSchema } from '@/schemas'
 import { Dispatch, SetStateAction } from 'react'
 
 export interface iContext {
@@ -8,6 +8,7 @@ export interface iContext {
   setOpenToastSuccess: Dispatch<SetStateAction<boolean>>
   openToastError: boolean
   setOpenToastError: Dispatch<SetStateAction<boolean>>
+  userRegister: (data: tRegisterFormSchema) => Promise<void>
 }
 
 export interface iChildrenProps {
