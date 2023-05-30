@@ -1,7 +1,14 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import { ContextProvider } from '@/contexts/provider'
+import '../styles/globals.css'
+// eslint-disable-next-line camelcase
+import { Roboto_Flex } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto_Flex({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+  style: 'normal',
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -11,7 +18,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={roboto.className}>
+        <ContextProvider>{children}</ContextProvider>
+      </body>
     </html>
   )
 }
