@@ -1,5 +1,6 @@
 'use client'
-import { checkUserAuthenticated } from '@/functions/functions/checkUserAuthenticated'
+
+import { checkUserAuthenticated } from '@/functions/checkUserAuthenticated'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
 
