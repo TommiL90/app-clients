@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { Suspense, useContext, useState } from 'react'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
 import { ButtonPrimary } from '@/components/Buttons'
+import NavBar from '@/components/Navbar'
 
 
 const DinamicAddContactModal = dynamic(() => import('../../components/Modal/ModalAddContact'), {
@@ -18,7 +19,7 @@ const DinamicAddContactModal = dynamic(() => import('../../components/Modal/Moda
     const handleOpen = () => setOpen(!open)
     return (
       <>
-        {/* <NavBar /> */}
+        <NavBar />
   
         <main className='container p-7'>
           <section>
