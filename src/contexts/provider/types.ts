@@ -1,8 +1,15 @@
+import { tLoginFormSchema } from '@/schemas'
+import { Dispatch, SetStateAction } from 'react'
+
 export interface iContext {
-    teste: string;
+  loginUser: (data: tLoginFormSchema) => Promise<void>
+  loading: boolean
+  openToastSuccess: boolean
+  setOpenToastSuccess: Dispatch<SetStateAction<boolean>>
+  openToastError: boolean
+  setOpenToastError: Dispatch<SetStateAction<boolean>>
 }
 
-
 export interface iChildrenProps {
-    children: React.ReactNode;
+  children: React.ReactNode
 }

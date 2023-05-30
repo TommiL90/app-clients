@@ -5,4 +5,4 @@ export const loginFormSchema = z.object({
   password: z.string().nonempty('Campo obrigatório'),
 })
 
-export type TLoginFormSchema = z.infer<typeof loginFormSchema>
+export type tLoginFormSchema = z.infer<typeof loginFormSchema>
