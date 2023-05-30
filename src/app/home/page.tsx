@@ -21,7 +21,7 @@ const DinamicAddContactModal = dynamic(() => import('../../components/Modal/Moda
       <>
         <NavBar />
   
-        <main className='container p-7'>
+        <main className='container mx-auto p-4'>
           <section>
             <h2 className='mb-6 block font-sans text-4xl font-semibold leading-[1.3] tracking-normal text-inherit antialiased'>
               Gerenciamento de Contatos

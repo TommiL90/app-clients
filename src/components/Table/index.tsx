@@ -1,7 +1,7 @@
 'use client'
 import { Card, Typography } from '@material-tailwind/react'
 import dynamic from 'next/dynamic'
-import { TABLE_HEAD } from '@/constants'
+import { TABLE_HEAD } from '@/constants/table-head'
 import { iContact } from '@/contexts/ContactsContext/types'
 import { useContext, useState } from 'react'
 import { ContactContext } from '@/contexts/ContactsContext'
