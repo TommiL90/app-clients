@@ -1,7 +1,7 @@
 'use client'
 
-import { createContext, useState } from 'react'
-import { iChildrenProps, iContext } from './types'
+import { createContext, useEffect, useState } from 'react'
+import { iChildrenProps, iContext, iUser } from './types'
 import { useRouter } from 'next/navigation'
 import api from '@/services/api'
 import { tLoginFormSchema, tRegisterFormSchema } from '@/schemas'
@@ -12,6 +12,7 @@ export const ContextProvider = ({ children }: iChildrenProps) => {
   const [loading, setLoading] = useState(false)
   const [openToastSuccess, setOpenToastSuccess] = useState(false)
   const [openToastError, setOpenToastError] = useState(false)
+  const [user, setUser] = useState({} as iUser)
   const router = useRouter()
 
   const loginUser = async (data: tLoginFormSchema): Promise<void> => {
@@ -48,6 +49,30 @@ export const ContextProvider = ({ children }: iChildrenProps) => {
     }
   }
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const accessToken = localStorage.getItem('@Clients:token')
+
+        if (!accessToken) {
+          router.push('/login')
+          throw new Error('Access Token not found')
+        }
+
+        const response = await api.get<iUser>('/users/user', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        setUser(response.data)
+      } catch (error) {
+        console.log(error)
+        router.push('/login')
+        throw new Error('Retrieve Contacts failed')
+      }
+    })()
+  }, [router, setUser])
+
   return (
     <Context.Provider
       value={{
@@ -58,6 +83,7 @@ export const ContextProvider = ({ children }: iChildrenProps) => {
         openToastError,
         setOpenToastError,
         userRegister,
+        user,
       }}
     >
       {children}

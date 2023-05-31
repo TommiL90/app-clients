@@ -37,8 +37,8 @@ export const ContactProvider = ({ children }: iChildrenProps) => {
         throw new Error('Retrieve Contacts failed')
       }
     })()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+ 
+  }, [router])
 
   const addContact = async (data: iDataAddContact) => {
     const accessToken = localStorage.getItem('@Clients:token')
