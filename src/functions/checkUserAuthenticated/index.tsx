@@ -1,7 +1,11 @@
 
 
 export const checkUserAuthenticated = () => {
-  const accessToken = localStorage.getItem('@Clients:token')
+  if(typeof window !== 'undefined') {
+    const accessToken = localStorage.getItem('@Clients:token')
 
-  return !!accessToken;
+    return !!accessToken;
+  } else{
+    return false
+  }
 };

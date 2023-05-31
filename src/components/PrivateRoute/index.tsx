@@ -1,5 +1,4 @@
 'use client'
-
 import { checkUserAuthenticated } from '@/functions/checkUserAuthenticated'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
@@ -12,6 +11,7 @@ const PrivateRoute = ({ children }: IPrivateRouteProps) => {
   const { push } = useRouter()
 
   const isUserAuthenticated = checkUserAuthenticated()
+  console.log(isUserAuthenticated)
 
   useEffect(() => {
     if (!isUserAuthenticated) {
@@ -21,8 +21,8 @@ const PrivateRoute = ({ children }: IPrivateRouteProps) => {
 
   return (
     <>
-      {!isUserAuthenticated && null}
-      {isUserAuthenticated && children}
+        {!isUserAuthenticated && null}
+        {isUserAuthenticated && children}
     </>
   )
 }
