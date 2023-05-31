@@ -22,7 +22,7 @@ const MenuComponent = () => {
         />
       </MenuHandler>
       <MenuList>
-        <Link href={'/profile'}>
+        <Link href={'/user'}>
           <MenuItem className='flex items-center gap-2'>
             <UserCircleIcon strokeWidth={2} className='h-4 w-4' />
             <Typography variant='small' className='font-normal'>

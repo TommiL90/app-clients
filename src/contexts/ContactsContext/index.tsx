@@ -14,112 +14,111 @@ import api from '@/services/api'
 export const ContactContext = createContext({} as iContactContext)
 
 export const ContactProvider = ({ children }: iChildrenProps) => {
-  const [loading, setLoading] = useState(false)
-  const [openToastSuccess, setOpenToastSuccess] = useState(false)
-  const [openToastError, setOpenToastError] = useState(false)
-  const [contacts, setContacts] = useState<iContact[]>([])
+  const [loading, setLoading] = useState(false);
+  const [openToastSuccess, setOpenToastSuccess] = useState(false);
+  const [openToastError, setOpenToastError] = useState(false);
+  const [contacts, setContacts] = useState<iContact[]>([]);
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    (async () => {
+    const fetchContacts = async () => {
       try {
-        const accessToken = localStorage.getItem('@Clients:token')
+        const accessToken = localStorage.getItem('@Clients:token');
         const response = await api.get<iContact[]>('/contacts', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        })
-        setContacts((prevContacts) => [...prevContacts, ...response.data])
+        });
+        setContacts((prevContacts) => [...prevContacts, ...response.data]);
       } catch (error) {
-        console.log(error)
-        router.push('/login')
-        throw new Error('Retrieve Contacts failed')
+        console.log(error);
+        router.push('/login');
+        throw new Error('Retrieve Contacts failed');
       }
-    })()
- 
-  }, [router])
+    };
+
+    fetchContacts();
+  }, [router]);
 
   const addContact = async (data: iDataAddContact) => {
-    const accessToken = localStorage.getItem('@Clients:token')
+    const accessToken = localStorage.getItem('@Clients:token');
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await api.post<iContact>('/contacts', data, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      })
-      setContacts((prev) => [...prev, response.data])
+      });
+      setContacts((prev) => [...prev, response.data]);
     } catch (error) {
-      console.log(error)
-
-      setOpenToastError(true)
+      console.log(error);
+      setOpenToastError(true);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const editContact = async (data: iDataEditContact, idContact: number) => {
-    const accessToken = localStorage.getItem('@Clients:token')
+    const accessToken = localStorage.getItem('@Clients:token');
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await api.patch<iContact>(`/contacts/${idContact}`, data, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      })
-      setContacts((prevEstate) => {
-        const filteredContacts = prevEstate.filter((contact) => contact.id !== idContact)
-        const updatedContact = prevEstate.find((contact) => contact.id === idContact)
-        if (updatedContact) {
-          return [...filteredContacts, { ...response.data }]
-        }
-        return filteredContacts
-      })
-      setOpenToastSuccess(true)
+      });
+      setContacts((prev) => {
+        const filteredContacts = prev.filter((contact) => contact.id !== idContact);
+        return [...filteredContacts, response.data];
+      });
+      setOpenToastSuccess(true);
     } catch (error) {
-      console.log(error)
-      setOpenToastError(true)
-      throw new Error('EditContact failed')
+      console.log(error);
+      setOpenToastError(true);
+      throw new Error('EditContact failed');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const deleteContact = async (idContact: number) => {
-    const accessToken = localStorage.getItem('@Clients:token')
+    const accessToken = localStorage.getItem('@Clients:token');
 
     try {
       await api.delete(`/contacts/${idContact}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      })
-      console.log('DeleteContact', idContact)
-      return
+      });
+      console.log('DeleteContact', idContact);
+      setContacts((prevContacts) => {
+        const filteredContacts = prevContacts.filter((contact) => contact.id !== idContact);
+        return filteredContacts;
+      });
     } catch (error) {
-      console.log(error)
-      throw new Error('DeleteContact failed')
+      console.log(error);
+      throw new Error('DeleteContact failed');
     }
-  }
+  };
 
   const retrieveContacts = async () => {
-    const accessToken = localStorage.getItem('@Clients:token')
+    const accessToken = localStorage.getItem('@Clients:token');
 
     try {
       const response = await api.get<iContact[]>('/contacts', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      })
-      return response.data
+      });
+      return response.data;
     } catch (error) {
-      console.log(error)
-      throw new Error('Retrieve Contacts failed')
+      console.log(error);
+      throw new Error('Retrieve Contacts failed');
     }
-  }
+  };
 
   return (
     <ContactContext.Provider
@@ -138,5 +137,5 @@ export const ContactProvider = ({ children }: iChildrenProps) => {
     >
       {children}
     </ContactContext.Provider>
-  )
-}
+  );
+};
