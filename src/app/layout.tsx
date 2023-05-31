@@ -14,11 +14,6 @@ const roboto = Roboto_Flex({
   style: 'normal',
 })
 
-export const metadata = {
-  title: 'Clients Hub',
-  description: 'A plataforma pra listar e gerenciar os contatos dos seus clientes',
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname: string = usePathname()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
